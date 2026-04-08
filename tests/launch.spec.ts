@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
-test('Login page should load correctly', async ({ page }) => {
-  // Navigate to your URL
+test('User should be able to attempt login', async ({ page }) => {
   await page.goto('https://plamento-login-pa47.vercel.app/signin');
 
-  // Verify URL
-  await expect(page).toHaveURL(/signin/);
+  await page.fill('input[name="email"]', 'test@example.com');
+  await page.fill('input[name="password"]', 'password123');
 
-  // Check if page has some visible element (adjust selector based on your UI)
-  await expect(page.locator('text=Sign In')).toBeVisible();
+  await page.click('button[type="submit"]');
+
+  await expect(page).not.toHaveURL(/signin/);
 });
